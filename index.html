@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Marko Bera — Web dizajner i developer. Liquid glass interfejsi, moderni sajtovi i motion animacije koje ostavljaju utisak." />
+  <meta name="theme-color" content="#05070e" />
+  <title>Marko Bera — Web Designer & Developer</title>
+
+  <!-- ===== Open Graph / social preview ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://newebera.netlify.app/" />
+  <meta property="og:title" content="Marko Bera — Web Designer & Developer" />
+  <meta property="og:description" content="Liquid glass interfejsi, moderni sajtovi i motion animacije koje ostavljaju utisak." />
+  <meta property="og:image" content="https://newebera.netlify.app/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="sr_RS" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Marko Bera — Web Designer & Developer" />
+  <meta name="twitter:description" content="Liquid glass interfejsi, moderni sajtovi i motion animacije koje ostavljaju utisak." />
+  <meta name="twitter:image" content="https://newebera.netlify.app/assets/og-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Custom cursor -->
+  <div class="cursor" data-cursor></div>
+  <div class="cursor-dot" data-cursor-dot></div>
+
+  <!-- Animated background -->
+  <div class="bg-aurora" aria-hidden="true">
+    <span class="blob blob--1"></span>
+    <span class="blob blob--2"></span>
+    <span class="blob blob--3"></span>
+    <div class="grain"></div>
+  </div>
+
+  <!-- Loader -->
+  <div class="loader" data-loader>
+    <span class="loader__name">MARKO BERA</span>
+    <span class="loader__count" data-loader-count>0</span>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" data-nav>
+    <a href="#hero" class="nav__logo" data-magnetic>MB<span>.</span></a>
+    <nav class="nav__links">
+      <a href="#services" data-link>Šta nudim</a>
+      <a href="#work" data-link>Radovi</a>
+      <a href="#about" data-link>O meni</a>
+      <a href="#contact" class="nav__cta" data-magnetic>Kontakt</a>
+    </nav>
+    <button class="nav__burger" data-burger aria-label="Meni">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" data-mobile-menu>
+    <a href="#services" data-link>Šta nudim</a>
+    <a href="#work" data-link>Radovi</a>
+    <a href="#about" data-link>O meni</a>
+    <a href="#contact" data-link>Kontakt</a>
+  </div>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="hero__inner">
+        <div class="hero__text">
+          <p class="hero__eyebrow" data-reveal>
+            <span class="dot"></span> Dostupan za nove projekte
+          </p>
+          <h1 class="hero__title">
+            <span class="line"><span data-hero-line>Dizajniram &amp;</span></span>
+            <span class="line"><span data-hero-line>gradim <em>digitalne</em></span></span>
+            <span class="line"><span data-hero-line>doživljaje</span></span>
+          </h1>
+          <p class="hero__sub" data-reveal>
+            Ja sam Marko — web dizajner i developer. Spajam estetiku liquid glass-a,
+            čist kod i motion animacije u sajtove koji se pamte.
+          </p>
+          <div class="hero__actions" data-reveal>
+            <a href="#work" class="btn btn--primary" data-magnetic>
+              <span>Pogledaj radove</span>
+            </a>
+            <a href="#contact" class="btn btn--ghost" data-magnetic>
+              <span>Hajde da radimo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ===== CAPABILITY ORBIT — premium hero animacija ===== -->
+        <div class="hero__viz" data-viz>
+          <div class="viz__stage">
+            <span class="viz__beam" data-viz-beam></span>
+            <span class="viz__ring viz__ring--1"></span>
+            <span class="viz__ring viz__ring--2"></span>
+            <span class="viz__ring viz__ring--3"></span>
+
+            <div class="viz__core glass">
+              <span class="viz__core-icon" data-viz-icon></span>
+              <span class="viz__core-title" data-viz-title>Kvalitetan web</span>
+            </div>
+
+            <div class="viz__orbit">
+              <button class="viz__node" data-viz-node style="--i:0"
+                aria-label="Dizajn"
+                data-title="Dizajn"
+                data-text="Vizuelni identitet koji gradi poverenje na prvi pogled i izdvaja te od konkurencije.">
+                <span class="viz__node-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+                </span>
+              </button>
+
+              <button class="viz__node" data-viz-node style="--i:1"
+                aria-label="Cyber Security"
+                data-title="Cyber Security"
+                data-text="Zaštita sajta i podataka — HTTPS, sigurne forme i standardi koji čuvaju tebe i tvoje klijente.">
+                <span class="viz__node-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                </span>
+              </button>
+
+              <button class="viz__node" data-viz-node style="--i:2"
+                aria-label="Performanse"
+                data-title="Performanse"
+                data-text="Brzo učitavanje koje zadržava posetioce i diže ti rang na Google pretrazi.">
+                <span class="viz__node-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+                </span>
+              </button>
+
+              <button class="viz__node" data-viz-node style="--i:3"
+                aria-label="SEO"
+                data-title="SEO"
+                data-text="Optimizacija da te budući klijenti pronađu prvi, baš kad te traže.">
+                <span class="viz__node-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                </span>
+              </button>
+
+              <button class="viz__node" data-viz-node style="--i:4"
+                aria-label="Motion"
+                data-title="Motion"
+                data-text="Animacije i micro-interakcije koje vode pažnju i čine sajt nezaboravnim.">
+                <span class="viz__node-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <p class="viz__caption"><span data-viz-text>Klikni ili sačekaj — svaki sloj kvalitetnog sajta radi za tvoj biznis.</span></p>
+        </div>
+      </div>
+
+      <div class="hero__scroll" data-reveal>
+        <span>Skroluj</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </section>
+
+    <!-- ===== MARQUEE ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" data-marquee>
+        <span>Web Dizajn</span><span>✦</span>
+        <span>Development</span><span>✦</span>
+        <span>Motion</span><span>✦</span>
+        <span>Liquid Glass</span><span>✦</span>
+        <span>Brand</span><span>✦</span>
+        <span>Web Dizajn</span><span>✦</span>
+        <span>Development</span><span>✦</span>
+        <span>Motion</span><span>✦</span>
+        <span>Liquid Glass</span><span>✦</span>
+        <span>Brand</span><span>✦</span>
+      </div>
+    </div>
+
+    <!-- ===== SERVICES / ŠTA NUDIM ===== -->
+    <section class="services" id="services">
+      <div class="section-head" data-reveal>
+        <span class="section-head__index">01</span>
+        <h2 class="section-head__title">Šta nudim</h2>
+        <p class="section-head__lead">
+          Od prve skice do live sajta — pokrivam ceo put. Tri stvari koje radim
+          ozbiljno, i radim ih dobro.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card glass" data-reveal data-tilt>
+          <span class="card__num">01</span>
+          <div class="card__icon">◑</div>
+          <h3 class="card__title">Web Dizajn</h3>
+          <p class="card__text">
+            Pretvaram ideje u vizuelne identitete koji ostaju u sećanju.
+            UI/UX, wireframe-ovi i dizajn sistemi napravljeni oko tvog brenda —
+            ne oko šablona.
+          </p>
+          <ul class="card__list">
+            <li>UI / UX dizajn</li>
+            <li>Vizuelni identitet</li>
+            <li>Dizajn sistemi</li>
+          </ul>
+        </article>
+
+        <article class="card glass" data-reveal data-tilt>
+          <span class="card__num">02</span>
+          <div class="card__icon">⌘</div>
+          <h3 class="card__title">Web Development</h3>
+          <p class="card__text">
+            Dizajn koji ne radi je samo slika. Pišem čist, brz kod koji
+            pretvara dizajn u sajt — responzivan, optimizovan i spreman da
+            podnese pravi saobraćaj.
+          </p>
+          <ul class="card__list">
+            <li>Frontend razvoj</li>
+            <li>Responzivni layouti</li>
+            <li>Performanse &amp; SEO</li>
+          </ul>
+        </article>
+
+        <article class="card glass" data-reveal data-tilt>
+          <span class="card__num">03</span>
+          <div class="card__icon">✦</div>
+          <h3 class="card__title">Motion &amp; Animacije</h3>
+          <p class="card__text">
+            Detalj koji razdvaja dobar sajt od nezaboravnog. Scroll animacije,
+            micro-interakcije i liquid glass efekti koji oživljavaju interfejs i
+            zadržavaju pažnju.
+          </p>
+          <ul class="card__list">
+            <li>Scroll animacije</li>
+            <li>Micro-interakcije</li>
+            <li>Liquid glass efekti</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== WORK / RADOVI ===== -->
+    <section class="work" id="work">
+      <div class="section-head" data-reveal>
+        <span class="section-head__index">02</span>
+        <h2 class="section-head__title">Izabrani radovi</h2>
+        <p class="section-head__lead">
+          Mini demo radovi — svaki pokazuje drugu veštinu. Sve što vidiš je
+          animacija kodirana od nule, uživo u browseru. Ne slike — pravi kod.
+        </p>
+      </div>
+
+      <div class="projects">
+
+        <!-- ===== Demo 1 — Dashboard / Data viz ===== -->
+        <article class="project glass" data-reveal data-tilt data-demo="dash">
+          <div class="project__media">
+            <span class="project__tag">Dashboard</span>
+            <div class="demo demo--dash">
+              <div class="demo-dash">
+                <div class="demo-dash__head">
+                  <span class="demo-dash__live"><i></i> Live</span>
+                </div>
+                <span class="demo-dash__val" data-dash-val>€ 0</span>
+                <span class="demo-dash__sub">↑ 18% ovog meseca</span>
+                <svg class="demo-dash__chart" viewBox="0 0 300 120" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="dashFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#4fe6db" stop-opacity="0.45" />
+                      <stop offset="100%" stop-color="#4fe6db" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path class="demo-dash__area" fill="url(#dashFill)"
+                    d="M0,95 C28,80 44,86 70,60 C96,36 116,64 145,46 C174,28 196,58 224,36 C252,16 276,30 300,18 L300,120 L0,120 Z" />
+                  <path id="dashLine" class="demo-dash__line" fill="none" stroke="#4fe6db" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    d="M0,95 C28,80 44,86 70,60 C96,36 116,64 145,46 C174,28 196,58 224,36 C252,16 276,30 300,18" />
+                  <circle class="demo-dash__pt" r="4.5" fill="#fff">
+                    <animateMotion dur="3.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+                      <mpath href="#dashLine" />
+                    </animateMotion>
+                  </circle>
+                </svg>
+                <div class="demo-dash__bars">
+                  <span style="--h:48%"></span><span style="--h:72%"></span><span style="--h:40%"></span>
+                  <span style="--h:88%"></span><span style="--h:62%"></span><span style="--h:95%"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project__meta">
+            <h3>Analytics &amp; Data Viz</h3>
+            <p>UI/UX · Data viz · Frontend</p>
+          </div>
+        </article>
+
+        <!-- ===== Demo 2 — Fine Jewelry store ===== -->
+        <article class="project glass" data-reveal data-tilt data-demo="jewel">
+          <div class="project__media">
+            <span class="project__tag">Jewelry</span>
+            <div class="demo demo--jewel">
+              <div class="site site--jewel">
+                <header class="jewel__nav">
+                  <span class="jewel__brand">AURÉLIE</span>
+                  <span class="jewel__menu"><i></i><i></i></span>
+                </header>
+                <div class="jewel__hero">
+                  <span class="jewel__eyebrow">Fine Jewelry</span>
+                  <div class="jewel__stage">
+                    <svg class="jewel__gem" viewBox="0 0 120 120" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="jGold" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stop-color="#f0d9a3" /><stop offset="100%" stop-color="#b8893f" />
+                        </linearGradient>
+                        <linearGradient id="jDia" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#f3fbff" /><stop offset="100%" stop-color="#bfe6ff" />
+                        </linearGradient>
+                      </defs>
+                      <ellipse cx="60" cy="88" rx="25" ry="8.5" fill="none" stroke="url(#jGold)" stroke-width="5" />
+                      <polygon points="60,30 79,47 60,80 41,47" fill="url(#jDia)" />
+                      <polygon points="60,30 79,47 41,47" fill="#ffffff" opacity="0.55" />
+                      <line x1="41" y1="47" x2="79" y2="47" stroke="#ffffff" stroke-opacity="0.6" />
+                      <line x1="60" y1="30" x2="60" y2="80" stroke="#ffffff" stroke-opacity="0.3" />
+                      <line x1="51" y1="47" x2="60" y2="80" stroke="#ffffff" stroke-opacity="0.25" />
+                      <line x1="69" y1="47" x2="60" y2="80" stroke="#ffffff" stroke-opacity="0.25" />
+                    </svg>
+                    <span class="jewel__spark jewel__spark--1"></span>
+                    <span class="jewel__spark jewel__spark--2"></span>
+                  </div>
+                  <span class="jewel__title">Eternal <em>Solitaire</em></span>
+                  <div class="jewel__buy">
+                    <span class="jewel__price">€ 1.290</span>
+                    <span class="jewel__cta">Discover</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project__meta">
+            <h3>Fine Jewelry Store</h3>
+            <p>E-commerce · UI/UX · Brand</p>
+          </div>
+        </article>
+
+        <!-- ===== Demo 3 — E-commerce UI ===== -->
+        <article class="project glass" data-reveal data-tilt data-demo="shop">
+          <div class="project__media">
+            <span class="project__tag">E-commerce</span>
+            <div class="demo demo--shop">
+              <div class="demo-shop" data-shop>
+                <div class="demo-shop__stage">
+                  <span class="demo-shop__glow"></span>
+                  <span class="demo-shop__obj"></span>
+                </div>
+                <div class="demo-shop__bar">
+                  <div>
+                    <span class="demo-shop__name">Glow Orb</span>
+                    <span class="demo-shop__price">€ 129</span>
+                  </div>
+                  <div class="demo-shop__swatches" data-shop-swatches>
+                    <button data-color="#4fe6db" style="--c:#4fe6db" class="is-active" aria-label="Aqua"></button>
+                    <button data-color="#ff9fcf" style="--c:#ff9fcf" aria-label="Pink"></button>
+                    <button data-color="#c3ccff" style="--c:#c3ccff" aria-label="Lilac"></button>
+                  </div>
+                </div>
+                <button class="demo-shop__cart" data-shop-cart><span>Dodaj u korpu</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="project__meta">
+            <h3>E-commerce UI</h3>
+            <p>Web shop · Micro-interakcije · UX</p>
+          </div>
+        </article>
+
+        <!-- ===== Demo 4 — Frizerski salon ===== -->
+        <article class="project glass" data-reveal data-tilt data-demo="salon">
+          <div class="project__media">
+            <span class="project__tag">Salon</span>
+            <div class="demo demo--salon">
+              <div class="site site--salon">
+                <header class="salon__nav">
+                  <span class="salon__brand">LUMA<span>.</span></span>
+                  <span class="salon__hours">Pon–Sub</span>
+                </header>
+                <div class="salon__hero">
+                  <span class="salon__eyebrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M20 4 8.12 15.88" /><path d="M14.47 14.48 20 20" /><path d="M8.12 8.12 12 12" /></svg>
+                    Hair Studio
+                  </span>
+                  <span class="salon__title">
+                    <span>Where</span><span class="em">style</span><span>begins.</span>
+                  </span>
+                  <div class="salon__row">
+                    <button class="salon__book">Rezerviši termin</button>
+                    <span class="salon__rating">★ 4.9</span>
+                  </div>
+                </div>
+                <div class="salon__ticker">
+                  <div class="salon__ticker-track">Cut · Color · Balayage · Styling · Bridal · Cut · Color · Balayage · Styling · Bridal · </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project__meta">
+            <h3>Salon &amp; Beauty Studio</h3>
+            <p>Web Dizajn · Booking · Brand</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== ABOUT / O MENI ===== -->
+    <section class="about" id="about">
+      <div class="section-head" data-reveal>
+        <span class="section-head__index">03</span>
+        <h2 class="section-head__title">O meni</h2>
+      </div>
+
+      <div class="about__grid">
+        <div class="about__photo-wrap" data-reveal data-tilt>
+          <div class="about__photo glass">
+            <img src="assets/marko.jpg" alt="Marko Bera — web dizajner i developer" width="820" height="820" loading="lazy" decoding="async" />
+          </div>
+          <span class="about__badge glass">Marko Bera</span>
+        </div>
+
+        <div class="about__content">
+          <p class="about__big" data-reveal>
+            Vođen detaljima, opsednut estetikom.
+          </p>
+          <p class="about__text" data-reveal>
+            Dizajn i kod posmatram kao dva jezika iste ideje. Volim kad se
+            interfejs ne samo vidi, nego i oseti — kad svaki skrol, hover i
+            tranzicija imaju razlog da postoje.
+          </p>
+          <p class="about__text" data-reveal>
+            Brzo učim, radim disciplinovano i fokusiran sam pod pritiskom — navike
+            koje sam izgradio kroz sport i rad u dinamičnim okruženjima. Taj isti
+            mindset unosim u svaki projekat: odgovornost, jasna komunikacija i
+            posvećenost dok rezultat ne bude tačno onakav kakav treba.
+          </p>
+
+          <div class="about__stats" data-reveal>
+            <div class="stat">
+              <span class="stat__num" data-count="100">0</span><span class="stat__plus">%</span>
+              <span class="stat__label">Posvećenost</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-count="3">0</span>
+              <span class="stat__label">Glavne usluge</span>
+            </div>
+            <div class="stat">
+              <span class="stat__num" data-count="24">0</span><span class="stat__plus">/7</span>
+              <span class="stat__label">Predan radu</span>
+            </div>
+          </div>
+
+          <div class="about__skills" data-reveal>
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            <span>GSAP</span><span>UI/UX</span><span>Figma</span><span>Motion</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT / KONTAKT ===== -->
+    <section class="contact" id="contact">
+      <div class="contact__inner glass" data-reveal data-tilt>
+        <span class="section-head__index">04</span>
+        <h2 class="contact__title">
+          Imaš ideju?<br /><em>Hajde da je oživimo.</em>
+        </h2>
+        <p class="contact__lead">
+          Otvoren sam za saradnje, freelance projekte i nove izazove.
+          Pošalji poruku — odgovaram brzo.
+        </p>
+
+        <form class="contact__form" data-form>
+          <div class="field">
+            <input type="text" id="name" name="name" required placeholder=" " />
+            <label for="name">Tvoje ime</label>
+          </div>
+          <div class="field">
+            <input type="email" id="email" name="email" required placeholder=" " />
+            <label for="email">Email</label>
+          </div>
+          <div class="field field--full">
+            <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
+            <label for="message">Ispričaj mi o projektu</label>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full" data-magnetic>
+            <span data-submit-text>Pošalji poruku</span>
+          </button>
+        </form>
+
+        <div class="contact__direct">
+          <a href="mailto:markobera749@gmail.com" data-magnetic>markobera749@gmail.com</a>
+          <a href="tel:+381600637486" data-magnetic>+381 60 0637486</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__top">
+      <span class="footer__big">Hajde da napravimo<br />nešto sjajno.</span>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-year>2026</span> Marko Bera</span>
+      <div class="footer__socials">
+        <a href="#" data-magnetic>Instagram</a>
+        <a href="#" data-magnetic>LinkedIn</a>
+        <a href="#" data-magnetic>Behance</a>
+      </div>
+      <span class="footer__credit">Dizajnirao &amp; kodirao Marko</span>
+    </div>
+  </footer>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
