@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Marko Bera — Web dizajner i developer. Liquid glass interfejsi, moderni sajtovi i motion animacije koje ostavljaju utisak." />
-  <meta name="theme-color" content="#05070e" />
+  <meta name="theme-color" content="#060a12" />
   <title>Marko Bera — Web Designer & Developer</title>
 
   <!-- ===== Open Graph / social preview ===== -->
@@ -107,6 +107,7 @@
             <span class="viz__ring viz__ring--3"></span>
 
             <div class="viz__core glass">
+              <canvas class="viz__swirl" data-viz-swirl aria-hidden="true"></canvas>
               <span class="viz__core-icon" data-viz-icon></span>
               <span class="viz__core-title" data-viz-title>Kvalitetan web</span>
             </div>
@@ -274,13 +275,13 @@
                 <svg class="demo-dash__chart" viewBox="0 0 300 120" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="dashFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#4fe6db" stop-opacity="0.45" />
-                      <stop offset="100%" stop-color="#4fe6db" stop-opacity="0" />
+                      <stop offset="0%" stop-color="#5fd0ff" stop-opacity="0.45" />
+                      <stop offset="100%" stop-color="#5fd0ff" stop-opacity="0" />
                     </linearGradient>
                   </defs>
                   <path class="demo-dash__area" fill="url(#dashFill)"
                     d="M0,95 C28,80 44,86 70,60 C96,36 116,64 145,46 C174,28 196,58 224,36 C252,16 276,30 300,18 L300,120 L0,120 Z" />
-                  <path id="dashLine" class="demo-dash__line" fill="none" stroke="#4fe6db" stroke-width="2.5"
+                  <path id="dashLine" class="demo-dash__line" fill="none" stroke="#5fd0ff" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round"
                     d="M0,95 C28,80 44,86 70,60 C96,36 116,64 145,46 C174,28 196,58 224,36 C252,16 276,30 300,18" />
                   <circle class="demo-dash__pt" r="4.5" fill="#fff">
@@ -323,10 +324,17 @@
                         <linearGradient id="jDia" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stop-color="#f3fbff" /><stop offset="100%" stop-color="#bfe6ff" />
                         </linearGradient>
+                        <clipPath id="jClip"><polygon points="60,30 79,47 60,80 41,47" /></clipPath>
                       </defs>
                       <ellipse cx="60" cy="88" rx="25" ry="8.5" fill="none" stroke="url(#jGold)" stroke-width="5" />
                       <polygon points="60,30 79,47 60,80 41,47" fill="url(#jDia)" />
                       <polygon points="60,30 79,47 41,47" fill="#ffffff" opacity="0.55" />
+                      <g clip-path="url(#jClip)">
+                        <rect class="jewel__shine" x="35" y="24" width="11" height="62" fill="#ffffff" transform="rotate(18 60 55)">
+                          <animate attributeName="x" values="22;94;22" keyTimes="0;0.5;1" dur="3.2s" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1" repeatCount="indefinite" />
+                          <animate attributeName="opacity" values="0;0.85;0" keyTimes="0;0.5;1" dur="3.2s" repeatCount="indefinite" />
+                        </rect>
+                      </g>
                       <line x1="41" y1="47" x2="79" y2="47" stroke="#ffffff" stroke-opacity="0.6" />
                       <line x1="60" y1="30" x2="60" y2="80" stroke="#ffffff" stroke-opacity="0.3" />
                       <line x1="51" y1="47" x2="60" y2="80" stroke="#ffffff" stroke-opacity="0.25" />
@@ -366,9 +374,9 @@
                     <span class="demo-shop__price">€ 129</span>
                   </div>
                   <div class="demo-shop__swatches" data-shop-swatches>
-                    <button data-color="#4fe6db" style="--c:#4fe6db" class="is-active" aria-label="Aqua"></button>
-                    <button data-color="#ff9fcf" style="--c:#ff9fcf" aria-label="Pink"></button>
-                    <button data-color="#c3ccff" style="--c:#c3ccff" aria-label="Lilac"></button>
+                    <button data-color="#5fd0ff" style="--c:#5fd0ff" class="is-active" aria-label="Ice"></button>
+                    <button data-color="#2e8bff" style="--c:#2e8bff" aria-label="Plava"></button>
+                    <button data-color="#aebfd6" style="--c:#aebfd6" aria-label="Srebrna"></button>
                   </div>
                 </div>
                 <button class="demo-shop__cart" data-shop-cart><span>Dodaj u korpu</span></button>
@@ -381,38 +389,47 @@
           </div>
         </article>
 
-        <!-- ===== Demo 4 — Frizerski salon ===== -->
-        <article class="project glass" data-reveal data-tilt data-demo="salon">
+        <!-- ===== Demo 4 — Supplements store ===== -->
+        <article class="project glass" data-reveal data-tilt data-demo="supp">
           <div class="project__media">
-            <span class="project__tag">Salon</span>
-            <div class="demo demo--salon">
-              <div class="site site--salon">
-                <header class="salon__nav">
-                  <span class="salon__brand">LUMA<span>.</span></span>
-                  <span class="salon__hours">Pon–Sub</span>
+            <span class="project__tag">Supplements</span>
+            <div class="demo demo--supp">
+              <div class="site site--supp">
+                <header class="supp__nav">
+                  <span class="supp__brand">APEX<span>°</span></span>
+                  <span class="supp__cart">🛒 1</span>
                 </header>
-                <div class="salon__hero">
-                  <span class="salon__eyebrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M20 4 8.12 15.88" /><path d="M14.47 14.48 20 20" /><path d="M8.12 8.12 12 12" /></svg>
-                    Hair Studio
-                  </span>
-                  <span class="salon__title">
-                    <span>Where</span><span class="em">style</span><span>begins.</span>
-                  </span>
-                  <div class="salon__row">
-                    <button class="salon__book">Rezerviši termin</button>
-                    <span class="salon__rating">★ 4.9</span>
+                <div class="supp__hero">
+                  <div class="supp__stage">
+                    <span class="supp__glow"></span>
+                    <div class="supp__orbit" aria-hidden="true">
+                      <span class="supp__ion" style="--a:28deg;  --r:64px"></span>
+                      <span class="supp__ion" style="--a:118deg; --r:60px"></span>
+                      <span class="supp__ion" style="--a:200deg; --r:66px"></span>
+                      <span class="supp__ion" style="--a:255deg; --r:58px"></span>
+                      <span class="supp__ion" style="--a:320deg; --r:62px"></span>
+                    </div>
+                    <div class="supp__tub">
+                      <span class="supp__tub-cap"></span>
+                      <span class="supp__tub-body">
+                        <span class="supp__tub-label">APEX<br />WHEY</span>
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div class="salon__ticker">
-                  <div class="salon__ticker-track">Cut · Color · Balayage · Styling · Bridal · Cut · Color · Balayage · Styling · Bridal · </div>
+                  <span class="supp__name">Whey Isolate · Vanilla</span>
+                  <div class="supp__macros">
+                    <div class="supp__macro"><b>27g</b><span>Protein</span></div>
+                    <div class="supp__macro"><b>120</b><span>kcal</span></div>
+                    <div class="supp__macro"><b>30</b><span>Porcija</span></div>
+                  </div>
+                  <button class="supp__buy">Dodaj u korpu — € 34</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="project__meta">
-            <h3>Salon &amp; Beauty Studio</h3>
-            <p>Web Dizajn · Booking · Brand</p>
+            <h3>Supplements Store</h3>
+            <p>E-commerce · Brand · Motion</p>
           </div>
         </article>
 

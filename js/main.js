@@ -262,6 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const viz = document.querySelector("[data-viz]");
   if (viz) {
     const nodes = Array.from(viz.querySelectorAll("[data-viz-node]"));
+    const core = viz.querySelector(".viz__core");
     const coreIcon = viz.querySelector("[data-viz-icon]");
     const titleEl = viz.querySelector("[data-viz-title]");
     const textEl = viz.querySelector("[data-viz-text]");
@@ -269,6 +270,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const step = 360 / nodes.length;
     let active = -1;
     let timer = null;
+
+    /* Boje swirla po čvoru: [primarna, sekundarna] iz palete aqua/pink/lilac */
+    const themes = [
+      ["#5fd0ff", "#aebfd6"], // Dizajn — cijan + srebrna
+      ["#2e8bff", "#5fd0ff"], // Cyber Security — plava + cijan
+      ["#2e8bff", "#aebfd6"], // Performanse — plava + srebrna
+      ["#aebfd6", "#5fd0ff"], // SEO — srebrna + cijan
+      ["#5fd0ff", "#2e8bff"], // Motion — cijan + plava
+    ];
+
+    const swirl = createSwirl(viz.querySelector("[data-viz-swirl]"));
 
     function setActive(i) {
       if (i === active) return;
@@ -279,6 +291,10 @@ document.addEventListener("DOMContentLoaded", () => {
       coreIcon.innerHTML = node.querySelector(".viz__node-icon").innerHTML;
       titleEl.textContent = node.dataset.title;
       textEl.textContent = node.dataset.text;
+
+      const theme = themes[i % themes.length];
+      if (core) core.style.setProperty("--accent", theme[0]);
+      if (swirl) swirl.setTheme(theme[0], theme[1]);
 
       if (!reduceMotion) {
         gsap.fromTo([coreIcon, titleEl, textEl],
@@ -301,6 +317,211 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.set(beam, { rotation: -90, transformOrigin: "0% 50%" });
     setActive(0);
     play();
+  }
+
+  /* ============================================
+     FLOW-FIELD SWIRL — živi vortex u jezgru
+     (self-contained, bez biblioteka)
+     ============================================ */
+  function createSwirl(canvas) {
+    if (!canvas || reduceMotion) return null;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return null;
+
+    const TAU = Math.PI * 2;
+    let dpr = 1, w = 0, h = 0, cx = 0, cy = 0, radius = 0;
+    let particles = [];
+    let t = 0;
+    let raf = null, running = false, visible = true;
+    const pointer = { x: 0, y: 0, str: 0 };
+    const col = { a: [46, 139, 255], b: [174, 191, 214] };
+    const target = { a: [46, 139, 255], b: [174, 191, 214] };
+    const noise = makeNoise();
+
+    function hexToRgb(hex) {
+      const n = parseInt(hex.slice(1), 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+    function rand(a, b) { return a + Math.random() * (b - a); }
+
+    function spawn(p, fresh) {
+      const ang = Math.random() * TAU;
+      const rr = Math.sqrt(Math.random()) * radius * 0.96;
+      p.x = cx + Math.cos(ang) * rr;
+      p.y = cy + Math.sin(ang) * rr;
+      p.px = p.x; p.py = p.y;
+      p.life = rand(50, 190);
+      p.age = fresh ? rand(0, p.life) : 0;
+      p.mix = Math.random();
+      p.spd = rand(0.6, 1.6);
+    }
+
+    function resize() {
+      const r = canvas.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = Math.round(r.width * dpr);
+      h = canvas.height = Math.round(r.height * dpr);
+      cx = w / 2; cy = h / 2; radius = Math.min(w, h) / 2;
+      const count = Math.max(80, Math.min(230, Math.round((w * h) / (dpr * dpr) / 90)));
+      particles = [];
+      for (let i = 0; i < count; i++) { const p = {}; spawn(p, true); particles.push(p); }
+      ctx.fillStyle = "#060a12";
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    function frame() {
+      if (!running) return;
+      t += 0.0016;
+      for (let k = 0; k < 3; k++) {
+        col.a[k] += (target.a[k] - col.a[k]) * 0.045;
+        col.b[k] += (target.b[k] - col.b[k]) * 0.045;
+      }
+
+      // gašenje tragova
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "rgba(6, 10, 18, 0.085)";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, TAU);
+      ctx.clip();
+      ctx.globalCompositeOperation = "lighter";
+      ctx.lineWidth = 1.15 * dpr;
+      ctx.lineCap = "round";
+
+      const fScale = 2.4 / radius;
+      if (pointer.str > 0.001) pointer.str *= 0.94;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const dx = p.x - cx, dy = p.y - cy;
+        const dist = Math.hypot(dx, dy) || 1;
+
+        // noise polje + vrtložni (tangencijalni) bias = vortex
+        const n = noise(p.x * fScale + t, p.y * fScale - t * 0.6);
+        const nAng = (n - 0.5) * Math.PI * 4;
+        const tAng = Math.atan2(dy, dx) + Math.PI / 2;
+        let vx = Math.cos(nAng) * 0.95 + Math.cos(tAng) * 0.75;
+        let vy = Math.sin(nAng) * 0.95 + Math.sin(tAng) * 0.75;
+
+        // blagi uticaj kursora — gurka čestice u stranu
+        if (pointer.str > 0.001) {
+          const pdx = p.x - pointer.x, pdy = p.y - pointer.y;
+          const pd = Math.hypot(pdx, pdy) || 1;
+          if (pd < radius) {
+            const f = (1 - pd / radius) * pointer.str;
+            vx += (pdx / pd) * f * 2.2;
+            vy += (pdy / pd) * f * 2.2;
+          }
+        }
+
+        const vlen = Math.hypot(vx, vy) || 1;
+        const sp = p.spd * dpr;
+        p.px = p.x; p.py = p.y;
+        p.x += (vx / vlen) * sp;
+        p.y += (vy / vlen) * sp;
+        p.age++;
+
+        if (p.age > p.life || dist > radius * 1.02) { spawn(p, false); continue; }
+
+        // boja: mešavina dve teme, alfa po životu i blizini ivice
+        const m = p.mix;
+        const cr = (col.a[0] * (1 - m) + col.b[0] * m) | 0;
+        const cg = (col.a[1] * (1 - m) + col.b[1] * m) | 0;
+        const cb = (col.a[2] * (1 - m) + col.b[2] * m) | 0;
+        const lifeF = Math.sin((p.age / p.life) * Math.PI);
+        const edgeF = Math.min(1, (radius - dist) / (radius * 0.28));
+        const alpha = 0.5 * lifeF * Math.max(0, edgeF);
+        if (alpha <= 0.003) continue;
+
+        ctx.strokeStyle = "rgba(" + cr + "," + cg + "," + cb + "," + alpha + ")";
+        ctx.beginPath();
+        ctx.moveTo(p.px, p.py);
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+      }
+      ctx.restore();
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (running || !visible) return;
+      if (!w) resize();
+      running = true;
+      raf = requestAnimationFrame(frame);
+    }
+    function stop() {
+      running = false;
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+    }
+
+    // kursor
+    const stage = viz.querySelector(".viz__stage") || canvas;
+    stage.addEventListener("pointermove", (e) => {
+      const r = canvas.getBoundingClientRect();
+      pointer.x = (e.clientX - r.left) * dpr;
+      pointer.y = (e.clientY - r.top) * dpr;
+      pointer.str = 1;
+    });
+
+    // pauziraj van vidnog polja i kad tab nije aktivan
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries) => {
+        visible = entries[0].isIntersecting;
+        if (visible) start(); else stop();
+      }, { threshold: 0.05 }).observe(canvas);
+    }
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop(); else if (visible) start();
+    });
+    if ("ResizeObserver" in window) {
+      let rt;
+      new ResizeObserver(() => { clearTimeout(rt); rt = setTimeout(resize, 150); }).observe(canvas);
+    } else {
+      window.addEventListener("resize", () => { clearTimeout(window.__swirlRT); window.__swirlRT = setTimeout(resize, 150); });
+    }
+
+    resize();
+    start();
+
+    return {
+      setTheme(hexA, hexB) {
+        target.a = hexToRgb(hexA);
+        target.b = hexToRgb(hexB);
+      },
+    };
+  }
+
+  /* Vrednosni (value) noise — glatko 2D polje za swirl */
+  function makeNoise() {
+    const p = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) p[i] = i;
+    for (let i = 255; i > 0; i--) {
+      const j = (Math.random() * (i + 1)) | 0;
+      const tmp = p[i]; p[i] = p[j]; p[j] = tmp;
+    }
+    const perm = new Uint8Array(512);
+    for (let i = 0; i < 512; i++) perm[i] = p[i & 255];
+    const fade = (t) => t * t * t * (t * (t * 6 - 15) + 10);
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const grad = (hash, x, y) => {
+      const u = (hash & 1) ? x : -x;
+      const v = (hash & 2) ? y : -y;
+      return u + v;
+    };
+    return function (x, y) {
+      const X = Math.floor(x) & 255, Y = Math.floor(y) & 255;
+      x -= Math.floor(x); y -= Math.floor(y);
+      const u = fade(x), v = fade(y);
+      const aa = perm[perm[X] + Y], ab = perm[perm[X] + Y + 1];
+      const ba = perm[perm[X + 1] + Y], bb = perm[perm[X + 1] + Y + 1];
+      return (lerp(
+        lerp(grad(aa, x, y), grad(ba, x - 1, y), u),
+        lerp(grad(ab, x, y - 1), grad(bb, x - 1, y - 1), u),
+        v) + 1) * 0.5;
+    };
   }
 
   /* ============================================
