@@ -964,10 +964,10 @@ section {
 }
 .demo-shop__cart.is-added { background: #38d39a; }
 
-/* ---------- Demo 4 — Supplements store (APEX) ---------- */
+/* ---------- Demo 4 — Supplements store (Gorilla Mind) ---------- */
 .site--supp { padding: 0.9rem 1rem 1rem; color: #eaf1fb; }
 .supp__nav { display: flex; justify-content: space-between; align-items: center; }
-.supp__brand { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.04em; font-size: 1rem; }
+.supp__brand { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.05em; font-size: 0.8rem; white-space: nowrap; }
 .supp__brand span { color: #5fd0ff; }
 .supp__cart {
   font-size: 0.62rem; font-weight: 600;
