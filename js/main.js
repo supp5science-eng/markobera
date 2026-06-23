@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================
-     CONTACT FORM (demo handling)
+     CONTACT FORM (Netlify Forms — AJAX submit)
      ============================================ */
   const form = document.querySelector("[data-form]");
   if (form) {
@@ -254,10 +254,27 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const btnText = form.querySelector("[data-submit-text]");
       const original = btnText.textContent;
-      btnText.textContent = "Hvala! ✦";
-      gsap.fromTo(form.querySelector(".btn"), { scale: 0.96 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
-      form.reset();
-      setTimeout(() => { btnText.textContent = original; }, 2600);
+
+      btnText.textContent = "Šaljem…";
+
+      // Pošalji podatke Netlify-u (url-encoded), uključujući form-name
+      const data = new URLSearchParams(new FormData(form)).toString();
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: data,
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Network response was not ok");
+          btnText.textContent = "Hvala! ✦";
+          gsap.fromTo(form.querySelector(".btn"), { scale: 0.96 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
+          form.reset();
+          setTimeout(() => { btnText.textContent = original; }, 2600);
+        })
+        .catch(() => {
+          btnText.textContent = "Greška — pokušaj ponovo";
+          setTimeout(() => { btnText.textContent = original; }, 3000);
+        });
     });
   }
 
