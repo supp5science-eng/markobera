@@ -508,7 +508,11 @@
           Pošalji poruku — odgovaram brzo.
         </p>
 
-        <form class="contact__form" data-form>
+        <form class="contact__form" data-form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden-field">
+            <label>Ne popunjavaj ovo polje: <input name="bot-field" /></label>
+          </p>
           <div class="field">
             <input type="text" id="name" name="name" required placeholder=" " />
             <label for="name">Tvoje ime</label>
