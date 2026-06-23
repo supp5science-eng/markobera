@@ -154,6 +154,7 @@ em { font-style: normal; color: var(--accent); }
   :root { --blur: 11px; }
   .blob { filter: blur(58px); opacity: 0.42; animation: none; }
   .blob--3 { display: none; }
+  .grain { animation: none; }
 }
 .grain {
   position: absolute;
