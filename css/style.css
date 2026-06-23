@@ -172,6 +172,58 @@ em { font-style: normal; color: var(--accent); }
 }
 
 /* ============================================
+   SPINE — linija koja raste kroz ceo sajt
+   ============================================ */
+.spine {
+  position: fixed;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  height: 100vh;
+  width: 14px;
+  z-index: 0;
+  pointer-events: none;
+}
+@media (max-width: 900px) { .spine { opacity: 0.55; } }
+.spine__track {
+  position: absolute;
+  top: 10vh; bottom: 10vh; left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.08);
+}
+.spine__fill {
+  position: absolute;
+  top: 10vh; left: 50%;
+  width: 1.5px; height: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(var(--aqua), var(--pink));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pink) 70%, transparent);
+}
+.spine__node {
+  position: absolute;
+  top: 10vh; left: 50%;
+  width: 9px; height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 16px var(--pink), 0 0 5px #fff;
+}
+.spine__tick {
+  position: absolute;
+  left: 50%;
+  width: 5px; height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background .45s var(--ease), box-shadow .45s var(--ease), transform .45s var(--ease);
+}
+.spine__tick.is-on {
+  background: var(--pink);
+  box-shadow: 0 0 10px var(--pink);
+  transform: scale(1.35);
+}
+
+/* ============================================
    GLASS UTILITY
    ============================================ */
 .glass {
