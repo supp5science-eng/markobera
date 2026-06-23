@@ -348,6 +348,7 @@ section {
   justify-content: center;
   max-width: 1280px;
   padding-top: 7.5rem;
+  padding-bottom: 6rem;
 }
 .hero__inner {
   display: grid;
@@ -1030,23 +1031,47 @@ section {
 .about__text { color: var(--text-dim); margin-bottom: 1rem; }
 .about__stats {
   display: flex;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  margin: 2.2rem 0;
+  gap: 0;
+  margin: 2.4rem 0;
   flex-wrap: wrap;
 }
-.stat { display: flex; flex-direction: column; }
-.stat__num, .stat__plus {
+.stat {
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(1.2rem, 3.5vw, 2.4rem);
+  border-left: 1px solid var(--glass-border);
+}
+.stat:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+.stat__value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.05em;
+  line-height: 1;
+}
+.stat__num {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.2rem, 5.5vw, 3.2rem);
   line-height: 1;
   color: var(--text);
 }
-.stat__plus { color: var(--accent); display: inline; }
+.stat__plus {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--accent);
+  line-height: 1;
+}
 .stat__label {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--text-dim);
-  margin-top: 0.4rem;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 .about__skills {
   display: flex;
