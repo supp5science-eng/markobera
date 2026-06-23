@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (reduceMotion) return;
     const lines = gsap.utils.toArray("[data-hero-line] > *, [data-hero-line]");
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    const isDesktop = window.matchMedia("(min-width: 901px)").matches;
 
     tl.from("[data-hero-line]", {
       yPercent: 120,
@@ -86,10 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .from(".hero__sub", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
       .to(".hero__sub", { opacity: 1, duration: 0.01 }, "<")
       .from(".hero__actions", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
-      .to(".hero__actions", { opacity: 1, duration: 0.01 }, "<")
-      .from(".hero__scroll", { opacity: 0, duration: 0.6 }, "-=0.3")
-      .to(".hero__scroll", { opacity: 1, duration: 0.01 }, "<")
-      .from(".hero__viz", { opacity: 0, scale: 0.9, duration: 1.1, ease: "power3.out" }, "-=1.1")
+      .to(".hero__actions", { opacity: 1, duration: 0.01 }, "<");
+
+    if (isDesktop) {
+      tl.from(".hero__scroll", { opacity: 0, duration: 0.6 }, "-=0.3")
+        .to(".hero__scroll", { opacity: 1, duration: 0.01 }, "<");
+    }
+
+    tl.from(".hero__viz", { opacity: 0, scale: 0.9, duration: 1.1, ease: "power3.out" }, "-=1.1")
       .from(".viz__node", { opacity: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }, "-=0.7");
 
     // The hero reveal items are handled here, so unmark them for the generic reveal
