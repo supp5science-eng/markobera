@@ -855,25 +855,49 @@ section {
   color: #a98b5e;
   margin-top: 0.5rem;
 }
+/* No box — ring floats freely on the cream backdrop, like the supplements demo */
 .jewel__stage {
   position: relative; flex: 1; display: grid; place-items: center;
-  min-height: 0; width: 100%; margin: 0.4rem 0;
-  border-radius: 16px;
-  background: radial-gradient(120% 95% at 50% 38%, #fffdf9 0%, #efe5d6 72%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  overflow: hidden;
+  min-height: 0; width: 100%; margin: 0.1rem 0;
 }
+/* warm rose-gold halo that softly pulses behind the ring */
+.jewel__glow {
+  position: absolute; width: 72%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(228, 165, 130, 0.55), transparent 66%);
+  filter: blur(26px);
+  animation: jewelGlow 7s ease-in-out infinite;
+  pointer-events: none; z-index: 1;
+}
+@keyframes jewelGlow {
+  0%, 100% { opacity: 0.5;  transform: scale(0.9); }
+  50%      { opacity: 0.95; transform: scale(1.08); }
+}
+/* tiny gold gems orbiting the ring */
+.jewel__orbit { position: absolute; inset: 0; z-index: 2; animation: jewelOrbit 22s linear infinite; }
+@keyframes jewelOrbit { to { transform: rotate(360deg); } }
+.jewel__spark {
+  position: absolute; top: 50%; left: 50%;
+  width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #fff3da 0%, #d49b4f 55%, #9c6422 100%);
+  box-shadow: 0 0 10px rgba(214, 158, 85, 0.85), inset 0 0 2px rgba(255, 255, 255, 0.85);
+  transform: rotate(var(--a)) translateY(calc(-1 * var(--r))) rotate(45deg);
+}
+.jewel__spark:nth-child(2) { width: 6px; height: 6px; margin: -3px 0 0 -3px; }
+.jewel__spark:nth-child(4) { width: 10px; height: 10px; margin: -5px 0 0 -5px; }
+.jewel__spark:nth-child(5) { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; }
+/* big, free-floating ring */
 .jewel__photo {
-  width: clamp(132px, 50vw, 184px);
+  position: relative; z-index: 3;
+  width: clamp(180px, 64vw, 232px);
   max-height: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 14px 18px rgba(120, 90, 40, 0.22));
-  animation: jewelFloat 6.5s ease-in-out infinite;
+  filter: drop-shadow(0 20px 26px rgba(150, 90, 55, 0.4));
+  animation: jewelFloat 6s ease-in-out infinite;
 }
 @keyframes jewelFloat {
-  0%, 100% { transform: translateY(-3%) rotate(-2deg); }
-  50%      { transform: translateY(4%) rotate(2deg); }
+  0%, 100% { transform: translateY(-3%) rotate(-2.5deg); }
+  50%      { transform: translateY(4%) rotate(2.5deg); }
 }
 .jewel__title {
   font-family: var(--font-serif);
