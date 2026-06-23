@@ -978,51 +978,18 @@ section {
 .supp__hero { flex: 1; display: flex; flex-direction: column; min-height: 0; }
 .supp__stage { position: relative; flex: 1; display: grid; place-items: center; min-height: 0; }
 .supp__glow {
-  position: absolute; width: 58%; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle, #2e8bff, transparent 70%);
-  filter: blur(26px); opacity: 0.5;
+  position: absolute; width: 64%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, #ff9d2e, transparent 70%);
+  filter: blur(28px); opacity: 0.5;
 }
 
-/* Tegla proteina */
-.supp__tub {
+/* Tegla proteina — prava Gorilla Mind Whey fotka (PNG, transparentna) */
+.supp__tub-img {
   position: relative; z-index: 3;
-  width: clamp(58px, 21vw, 80px);
-  aspect-ratio: 0.82;
+  width: clamp(112px, 40vw, 146px);
+  height: auto;
   animation: suppFloat 4.6s ease-in-out infinite;
-  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.5));
-}
-.supp__tub-cap {
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 78%; height: 19%;
-  border-radius: 7px 7px 3px 3px;
-  background: linear-gradient(#46587a, #26324a);
-  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.2);
-}
-.supp__tub-body {
-  position: absolute; left: 0; right: 0; top: 15%; bottom: 0;
-  border-radius: 9px 9px 13px 13px;
-  background: linear-gradient(150deg, #f2f6fc, #c4d2e6 55%, #91a3bf);
-  overflow: hidden;
-  box-shadow: inset -7px -8px 18px rgba(0, 0, 0, 0.22), inset 6px 6px 14px rgba(255, 255, 255, 0.45);
-  display: grid; place-items: center;
-}
-.supp__tub-body::before {
-  content: ""; position: absolute; left: 0; right: 0; top: 38%; height: 34%;
-  background: linear-gradient(90deg, #2e8bff, #5fd0ff);
-}
-.supp__tub-body::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.6) 50%, transparent 62%);
-  transform: translateX(-120%);
-  animation: suppShine 3.6s ease-in-out infinite;
-}
-.supp__tub-label {
-  position: relative; z-index: 2;
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(0.5rem, 2.3vw, 0.62rem);
-  letter-spacing: 0.06em; line-height: 1.05;
-  text-align: center; color: #fff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.55));
 }
 
 /* Sastojci koji orbituju */
