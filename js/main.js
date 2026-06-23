@@ -257,15 +257,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       btnText.textContent = "Šaljem…";
 
-      // Pošalji podatke Netlify-u (url-encoded), uključujući form-name
-      const data = new URLSearchParams(new FormData(form)).toString();
+      const body = new URLSearchParams(new FormData(form)).toString();
       fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: data,
+        body,
       })
-        .then((res) => {
-          if (!res.ok) throw new Error("Network response was not ok");
+        .then(() => {
           btnText.textContent = "Hvala! ✦";
           gsap.fromTo(form.querySelector(".btn"), { scale: 0.96 }, { scale: 1, duration: 0.4, ease: "back.out(2)" });
           form.reset();
