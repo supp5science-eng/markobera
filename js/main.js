@@ -31,6 +31,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* ============================================
+     SPINE — linija koja raste kroz ceo sajt
+     ============================================ */
+  (function initSpine() {
+    const spine = document.querySelector("[data-spine]");
+    if (!spine) return;
+    const fill = spine.querySelector("[data-spine-fill]");
+    const node = spine.querySelector("[data-spine-node]");
+    const TRACK = 80; // vh (100vh - 2*10vh)
+
+    // Čvorovi sekcija koji se pale kako linija prolazi
+    const points = [0.1, 0.3, 0.5, 0.7, 0.9];
+    const ticks = points.map((p) => {
+      const t = document.createElement("span");
+      t.className = "spine__tick";
+      t.style.top = (10 + p * TRACK) + "vh";
+      spine.appendChild(t);
+      return { el: t, p };
+    });
+
+    let current = 0;
+    const maxScroll = () =>
+      Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+
+    function loop() {
+      const p = Math.min(1, Math.max(0, window.scrollY / maxScroll()));
+      current += (p - current) * (reduceMotion ? 1 : 0.12);
+      fill.style.height = current * TRACK + "vh";
+      node.style.top = 10 + current * TRACK + "vh";
+      ticks.forEach((t) => t.el.classList.toggle("is-on", current >= t.p - 0.01));
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
   /* ---------- Footer year ---------- */
   const yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
