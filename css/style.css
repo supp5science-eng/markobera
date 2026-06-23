@@ -57,6 +57,12 @@ body {
   body { cursor: auto; }
 }
 
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 em { font-style: normal; color: var(--accent); }
@@ -187,22 +193,48 @@ em { font-style: normal; color: var(--accent); }
   z-index: 10000;
   background: var(--bg);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 0.4rem;
   padding: clamp(2rem, 6vw, 6rem);
-}
-.loader__name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.4rem, 4vw, 2.4rem);
-  letter-spacing: 0.05em;
 }
 .loader__count {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(3rem, 14vw, 9rem);
+  font-size: clamp(3.5rem, 16vw, 11rem);
   color: var(--accent);
   line-height: 1;
+  margin-bottom: 1.2rem;
+}
+.loader__reveal { overflow: hidden; }
+.loader__name {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 5vw, 2.6rem);
+  letter-spacing: 0.06em;
+}
+.loader__tag {
+  display: inline-block;
+  font-size: clamp(0.78rem, 2.5vw, 1rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.loader__bar {
+  margin-top: 1.6rem;
+  width: min(240px, 60vw);
+  height: 2px;
+  background: var(--glass-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.loader__bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--aqua), var(--pink));
 }
 .loader.is-done { pointer-events: none; }
 
@@ -1005,12 +1037,25 @@ section {
   padding: 10px;
   aspect-ratio: 4/5;
 }
+.about__photo { position: relative; }
 .about__photo img {
   width: 100%; height: 100%;
   object-fit: cover;
   border-radius: calc(var(--radius) - 10px);
   filter: contrast(1.05) saturate(1.05);
 }
+.about__photo-canvas {
+  position: absolute;
+  inset: 10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border-radius: calc(var(--radius) - 10px);
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+  pointer-events: none;
+}
+.about__photo.is-fx img { opacity: 0; }
+.about__photo.is-fx .about__photo-canvas { opacity: 1; }
 .about__badge {
   position: absolute;
   bottom: -16px; left: 50%;
