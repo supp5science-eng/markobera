@@ -207,11 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .from(".hero__actions", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
       .to(".hero__actions", { opacity: 1, duration: 0.01 }, "<");
 
-    if (isDesktop) {
-      tl.from(".hero__scroll", { opacity: 0, duration: 0.6 }, "-=0.3")
-        .to(".hero__scroll", { opacity: 1, duration: 0.01 }, "<");
-    }
-
     tl.from(".hero__viz", { opacity: 0, scale: 0.9, duration: 1.1, ease: "power3.out" }, "-=1.1")
       .from(".viz__node", { opacity: 0, duration: 0.5, stagger: 0.08, ease: "power2.out" }, "-=0.7");
 
