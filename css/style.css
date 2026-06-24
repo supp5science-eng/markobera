@@ -29,11 +29,26 @@
   --font: "Space Grotesk", system-ui, sans-serif;
   --font-display: "Clash Display", "Space Grotesk", system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-editorial: "Cormorant Garamond", Georgia, serif;
+}
+
+/* Editorijalni naglasak — pravi serif italik za isticanje u naslovima */
+.hero__title em,
+.section-head__title em,
+.contact__title em,
+.about__big em,
+.process__note em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent-2);
+  letter-spacing: 0;
 }
 
 /* Akcenti po sekcijama — aqua / pink / lilac smenjivanje */
 .services { --accent: var(--pink); --accent-2: var(--aqua); }
 .work     { --accent: var(--aqua); --accent-2: var(--pink); }
+.process  { --accent: var(--pink); --accent-2: var(--aqua); }
 .about    { --accent: var(--lilac); --accent-2: var(--pink); }
 .contact  { --accent: var(--aqua); --accent-2: var(--pink); }
 
@@ -112,48 +127,76 @@ em { font-style: normal; color: var(--accent); }
 }
 .blob {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(72px);
+  border-radius: 42% 58% 56% 44% / 48% 42% 58% 52%;
+  filter: blur(76px);
   opacity: 0.5;
-  will-change: transform;
+  will-change: transform, border-radius;
 }
 .blob--1 {
-  width: 50vw; height: 50vw;
+  width: 52vw; height: 52vw;
   background: var(--accent);
-  top: -10%; left: -10%;
-  animation: float1 18s ease-in-out infinite;
+  top: -12%; left: -10%;
+  animation: float1 26s ease-in-out infinite, morph 19s ease-in-out infinite;
 }
 .blob--2 {
-  width: 42vw; height: 42vw;
+  width: 44vw; height: 44vw;
   background: var(--accent-2);
-  bottom: -15%; right: -8%;
-  animation: float2 22s ease-in-out infinite;
+  bottom: -16%; right: -8%;
+  animation: float2 32s ease-in-out infinite, morph 23s ease-in-out infinite reverse;
 }
 .blob--3 {
-  width: 35vw; height: 35vw;
+  width: 36vw; height: 36vw;
   background: var(--accent-3);
-  top: 40%; left: 45%;
-  opacity: 0.4;
-  animation: float3 26s ease-in-out infinite;
+  top: 38%; left: 44%;
+  opacity: 0.38;
+  animation: float3 38s ease-in-out infinite, morph 27s ease-in-out infinite;
+}
+.blob--4 {
+  width: 30vw; height: 30vw;
+  background: var(--accent-2);
+  top: 8%; right: 18%;
+  opacity: 0.3;
+  animation: float4 30s ease-in-out infinite, morph 21s ease-in-out infinite reverse;
 }
 @keyframes float1 {
-  0%,100% { transform: translate(0,0); }
-  50% { transform: translate(18%, 16%); }
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(16%, 14%) scale(1.08); }
 }
 @keyframes float2 {
-  0%,100% { transform: translate(0,0); }
-  50% { transform: translate(-16%, -12%); }
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-15%, -11%) scale(1.1); }
 }
 @keyframes float3 {
-  0%,100% { transform: translate(0,0); }
-  50% { transform: translate(-22%, 14%); }
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-20%, 13%) scale(0.92); }
+}
+@keyframes float4 {
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(12%, 18%) scale(1.06); }
+}
+/* tečno preoblikovanje — daje "liquid" osećaj umesto savršenog kruga */
+@keyframes morph {
+  0%,100% { border-radius: 42% 58% 56% 44% / 48% 42% 58% 52%; }
+  33%     { border-radius: 62% 38% 40% 60% / 56% 58% 42% 44%; }
+  66%     { border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%; }
+}
+
+/* Rain — canvas sloj iza sadržaja */
+.rain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;            /* iznad aurore (-2), iza sadržaja */
+  width: 100%; height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
 }
 
 /* Mobilni: statični, lakši blobovi (bez stalnog kompozitovanja) */
 @media (max-width: 900px) {
   :root { --blur: 11px; }
   .blob { filter: blur(58px); opacity: 0.42; animation: none; }
-  .blob--3 { display: none; }
+  .blob--3, .blob--4 { display: none; }
   .grain { animation: none; }
 }
 .grain {
@@ -170,58 +213,6 @@ em { font-style: normal; color: var(--accent); }
   50% { transform: translate(-4%,6%); }
   70% { transform: translate(6%,3%); }
   90% { transform: translate(-3%,-4%); }
-}
-
-/* ============================================
-   SPINE — linija koja raste kroz ceo sajt
-   ============================================ */
-.spine {
-  position: fixed;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  height: 100vh;
-  width: 14px;
-  z-index: 0;
-  pointer-events: none;
-}
-@media (max-width: 900px) { .spine { opacity: 0.55; } }
-.spine__track {
-  position: absolute;
-  top: 10vh; bottom: 10vh; left: 50%;
-  width: 1px;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.08);
-}
-.spine__fill {
-  position: absolute;
-  top: 10vh; left: 50%;
-  width: 1.5px; height: 0;
-  transform: translateX(-50%);
-  background: linear-gradient(var(--aqua), var(--pink));
-  box-shadow: 0 0 12px color-mix(in srgb, var(--pink) 70%, transparent);
-}
-.spine__node {
-  position: absolute;
-  top: 10vh; left: 50%;
-  width: 9px; height: 9px;
-  margin: -4.5px 0 0 -4.5px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 16px var(--pink), 0 0 5px #fff;
-}
-.spine__tick {
-  position: absolute;
-  left: 50%;
-  width: 5px; height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
-  transition: background .45s var(--ease), box-shadow .45s var(--ease), transform .45s var(--ease);
-}
-.spine__tick.is-on {
-  background: var(--pink);
-  box-shadow: 0 0 10px var(--pink);
-  transform: scale(1.35);
 }
 
 /* ============================================
@@ -312,12 +303,23 @@ em { font-style: normal; color: var(--accent); }
 }
 .nav.is-hidden { transform: translateY(-120%); }
 .nav__logo {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
-.nav__logo span { color: var(--accent); }
+.nav__logo img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.nav__logo:hover img {
+  transform: scale(1.06);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
+}
 .nav__links {
   display: flex;
   align-items: center;
@@ -413,13 +415,15 @@ section {
   font-weight: 700;
   font-size: clamp(2.2rem, 7vw, 4.5rem);
   line-height: 1.02;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 .section-head__lead {
   margin-top: 1.2rem;
   color: var(--text-dim);
   font-size: clamp(1rem, 2vw, 1.15rem);
-  max-width: 540px;
+  max-width: 560px;
+  text-wrap: pretty;
 }
 
 /* ============================================
@@ -458,7 +462,10 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--text-dim);
   padding: 0.5rem 1rem;
   border-radius: 100px;
@@ -484,8 +491,9 @@ section {
   font-weight: 600;
   font-size: clamp(2.6rem, 8vw, 5.6rem);
   line-height: 0.98;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
+.hero__title em { font-size: 1.02em; line-height: 1; }
 .hero__title .line { display: block; overflow: hidden; }
 .hero__title .line > * { display: inline-block; }
 .hero__sub {
@@ -1059,6 +1067,89 @@ section {
 }
 
 /* ============================================
+   PROCESS / KAKO RADIM
+   ============================================ */
+.steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.step::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 75%);
+  opacity: 0.8;
+}
+.step__num {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  line-height: 1;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 1.1rem;
+}
+.step__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.7rem;
+}
+.step__text {
+  color: var(--text-dim);
+  font-size: 0.98rem;
+  text-wrap: pretty;
+}
+.process__note {
+  position: relative;
+  margin-top: clamp(1.5rem, 3vw, 2.4rem);
+  padding: clamp(1.7rem, 3.2vw, 2.4rem) clamp(1.8rem, 4vw, 3rem);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--accent);
+  font-family: var(--font-editorial);
+  font-size: clamp(1.55rem, 3.6vw, 2.45rem);
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.process__note em {
+  font-style: italic;
+  color: var(--accent-2);
+}
+/* "5x brže" — showpiece: bold display + topli crveno-narandžasti gradijent */
+.hl-red {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: normal;
+  font-size: 1.24em;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  background: linear-gradient(95deg, #ff5a5a 0%, #ff8a3d 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 16px rgba(255, 84, 64, 0.42));
+}
+
+@media (max-width: 760px) {
+  .steps { grid-template-columns: 1fr; }
+}
+
+/* ============================================
    ABOUT
    ============================================ */
 .about__grid {
@@ -1460,6 +1551,39 @@ section {
 
 @media (max-width: 900px) {
   .hero__viz { margin-top: 0.5rem; }
+}
+
+/* ============================================
+   MOBILE POLISH — telefon
+   ============================================ */
+@media (max-width: 600px) {
+  /* manje mrtvog prostora između sekcija na malom ekranu */
+  section { padding: clamp(3.4rem, 13vw, 5rem) 1.2rem; }
+  .hero { padding-top: 5.8rem; padding-bottom: 3.5rem; }
+
+  /* dugmad preko cele širine = veća meta za prst */
+  .hero__actions { width: 100%; gap: 0.8rem; }
+  .hero__actions .btn { flex: 1 1 100%; }
+
+  /* naslovi malo manji da ništa ne curi van ekrana */
+  .hero__title { font-size: clamp(2.1rem, 11vw, 3.6rem); }
+  .section-head__title { font-size: clamp(2rem, 9.5vw, 3rem); }
+  .footer__big { font-size: clamp(2rem, 11vw, 3.2rem); }
+
+  .process__note { font-size: 1.15rem; padding: 1.4rem 1.5rem; }
+
+  /* footer u kolonu, lepo poravnat */
+  .footer__bottom { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+  .footer__socials { gap: 1.2rem; }
+
+  /* kontakt direktni linkovi jedan ispod drugog */
+  .contact__direct { flex-direction: column; gap: 0.8rem; }
+}
+
+/* very small phones */
+@media (max-width: 380px) {
+  .hero__eyebrow { font-size: 0.7rem; letter-spacing: 0.1em; }
+  .about__skills span { font-size: 0.78rem; padding: 0.4rem 0.85rem; }
 }
 
 /* ============================================

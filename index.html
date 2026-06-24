@@ -9,7 +9,7 @@
   <!-- ===== Favicon ===== -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.svg" />
-  <link rel="apple-touch-icon" href="assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/logo.jpg" />
   <title>Marko Bera — Web Designer & Developer</title>
 
   <!-- ===== Open Graph / social preview ===== -->
@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
@@ -42,20 +42,17 @@
   <div class="cursor" data-cursor></div>
   <div class="cursor-dot" data-cursor-dot></div>
 
-  <!-- Animated background -->
+  <!-- Animated background — liquid aurora -->
   <div class="bg-aurora" aria-hidden="true">
     <span class="blob blob--1"></span>
     <span class="blob blob--2"></span>
     <span class="blob blob--3"></span>
+    <span class="blob blob--4"></span>
     <div class="grain"></div>
   </div>
 
-  <!-- Spine — linija koja raste kroz ceo sajt -->
-  <div class="spine" data-spine aria-hidden="true">
-    <span class="spine__track"></span>
-    <span class="spine__fill" data-spine-fill></span>
-    <span class="spine__node" data-spine-node></span>
-  </div>
+  <!-- Rain — lagani canvas sloj -->
+  <canvas class="rain" data-rain aria-hidden="true"></canvas>
 
   <!-- Loader -->
   <div class="loader" data-loader>
@@ -67,10 +64,13 @@
 
   <!-- Navigation -->
   <header class="nav" data-nav>
-    <a href="#hero" class="nav__logo" data-magnetic>MB<span>.</span></a>
+    <a href="#hero" class="nav__logo" data-magnetic aria-label="Marko Bera — početak">
+      <img src="assets/logo.jpg" alt="Marko Bera logo" width="44" height="44" />
+    </a>
     <nav class="nav__links">
       <a href="#services" data-link>Šta nudim</a>
       <a href="#work" data-link>Radovi</a>
+      <a href="#process" data-link>Kako radim</a>
       <a href="#about" data-link>O meni</a>
       <a href="#contact" class="nav__cta" data-magnetic>Kontakt</a>
     </nav>
@@ -83,6 +83,7 @@
   <div class="mobile-menu" data-mobile-menu>
     <a href="#services" data-link>Šta nudim</a>
     <a href="#work" data-link>Radovi</a>
+    <a href="#process" data-link>Kako radim</a>
     <a href="#about" data-link>O meni</a>
     <a href="#contact" data-link>Kontakt</a>
   </div>
@@ -93,23 +94,24 @@
       <div class="hero__inner">
         <div class="hero__text">
           <p class="hero__eyebrow" data-reveal>
-            <span class="dot"></span> Dostupan za nove projekte
+            <span class="dot"></span> Gotov demo pre svake obaveze
           </p>
           <h1 class="hero__title">
-            <span class="line"><span data-hero-line>Dizajniram &amp;</span></span>
-            <span class="line"><span data-hero-line>gradim <em>digitalne</em></span></span>
-            <span class="line"><span data-hero-line>doživljaje</span></span>
+            <span class="line"><span data-hero-line>Dobiješ</span></span>
+            <span class="line"><span data-hero-line>gotov sajt.</span></span>
+            <span class="line"><span data-hero-line>Tek onda <em>odlučuješ.</em></span></span>
           </h1>
           <p class="hero__sub" data-reveal>
-            Ja sam Marko — web dizajner i developer. Spajam estetiku liquid glass-a,
-            čist kod i motion animacije u sajtove koji se pamte.
+            Napravim ti kompletan sajt za tvoj biznis i pošaljem ti ga.
+            Sviđa ti se — radimo. Ne sviđa — nikom ništa, ne plaćaš ni dinar.
+            Bez rizika, bez avansa, bez praznih obećanja.
           </p>
           <div class="hero__actions" data-reveal>
             <a href="#work" class="btn btn--primary" data-magnetic>
               <span>Pogledaj radove</span>
             </a>
             <a href="#contact" class="btn btn--ghost" data-magnetic>
-              <span>Hajde da radimo</span>
+              <span>Hoću svoj demo sajt</span>
             </a>
           </div>
         </div>
@@ -208,8 +210,8 @@
         <span class="section-head__index">01</span>
         <h2 class="section-head__title">Šta nudim</h2>
         <p class="section-head__lead">
-          Od prve skice do live sajta — pokrivam ceo put. Tri stvari koje radim
-          ozbiljno, i radim ih dobro.
+          Od prazne strane do live sajta — za dane, ne za mesece. Dok ti drugi
+          šalju ponudu i ćute dve nedelje, ja ti već pošaljem gotov sajt da ga vidiš.
         </p>
       </div>
 
@@ -219,9 +221,9 @@
           <div class="card__icon">◑</div>
           <h3 class="card__title">Web Dizajn</h3>
           <p class="card__text">
-            Pretvaram ideje u vizuelne identitete koji ostaju u sećanju.
-            UI/UX, wireframe-ovi i dizajn sistemi napravljeni oko tvog brenda —
-            ne oko šablona.
+            Dizajn napravljen oko tvog brenda i tvojih kupaca — ne oko šablona
+            koji je već viđen na 100 sajtova. UI/UX, vizuelni identitet i sistemi
+            koji ostaju u sećanju.
           </p>
           <ul class="card__list">
             <li>UI / UX dizajn</li>
@@ -235,9 +237,9 @@
           <div class="card__icon">⌘</div>
           <h3 class="card__title">Web Development</h3>
           <p class="card__text">
-            Dizajn koji ne radi je samo slika. Pišem čist, brz kod koji
-            pretvara dizajn u sajt — responzivan, optimizovan i spreman da
-            podnese pravi saobraćaj.
+            Brz sajt koji se učita pre nego što kupac odustane. Optimizovan za
+            Google i za telefon, jer odatle ti i dolaze klijenti — čist kod
+            spreman za pravi saobraćaj.
           </p>
           <ul class="card__list">
             <li>Frontend razvoj</li>
@@ -252,8 +254,8 @@
           <h3 class="card__title">Motion &amp; Animacije</h3>
           <p class="card__text">
             Detalj koji razdvaja dobar sajt od nezaboravnog. Scroll animacije,
-            micro-interakcije i liquid glass efekti koji oživljavaju interfejs i
-            zadržavaju pažnju.
+            micro-interakcije i liquid glass efekti zbog kojih tvoj sajt izgleda
+            skuplje nego što jeste.
           </p>
           <ul class="card__list">
             <li>Scroll animacije</li>
@@ -432,10 +434,54 @@
       </div>
     </section>
 
+    <!-- ===== PROCESS / KAKO RADIM ===== -->
+    <section class="process" id="process">
+      <div class="section-head" data-reveal>
+        <span class="section-head__index">03</span>
+        <h2 class="section-head__title">Zašto <em>ovako</em> radim</h2>
+        <p class="section-head__lead">
+          Većina ljudi se plaši da naruči sajt jer ne zna šta dobija dok ne plati.
+          Kod mene je obrnuto.
+        </p>
+      </div>
+
+      <ol class="steps">
+        <li class="step glass" data-reveal data-tilt>
+          <span class="step__num">01</span>
+          <h3 class="step__title">Napravim ti demo</h3>
+          <p class="step__text">
+            Pošalješ mi par informacija o biznisu, ja napravim pravi, funkcionalan
+            sajt. Ne skicu, ne PDF — sajt koji možeš da otvoriš u browseru.
+          </p>
+        </li>
+        <li class="step glass" data-reveal data-tilt>
+          <span class="step__num">02</span>
+          <h3 class="step__title">Pogledaš ga na miru</h3>
+          <p class="step__text">
+            Bez pritiska i bez troška. Vidiš tačno kako bi izgledao tvoj sajt —
+            uživo, ne na papiru.
+          </p>
+        </li>
+        <li class="step glass" data-reveal data-tilt>
+          <span class="step__num">03</span>
+          <h3 class="step__title">Ti odlučuješ</h3>
+          <p class="step__text">
+            Sviđa ti se, dogovorimo se i pustimo ga uživo. Ne sviđa, raziđemo se
+            kao prijatelji. Win-win.
+          </p>
+        </li>
+      </ol>
+
+      <p class="process__note glass" data-reveal>
+        Radim <strong class="hl-red">5x brže</strong> od prosečnog web dizajnera u
+        Srbiji — tako da ne čekaš mesecima na nešto za šta ni ne znaš da li ćeš ga hteti.
+      </p>
+    </section>
+
     <!-- ===== ABOUT / O MENI ===== -->
     <section class="about" id="about">
       <div class="section-head" data-reveal>
-        <span class="section-head__index">03</span>
+        <span class="section-head__index">04</span>
         <h2 class="section-head__title">O meni</h2>
       </div>
 
@@ -449,18 +495,18 @@
 
         <div class="about__content">
           <p class="about__big" data-reveal>
-            Vođen detaljima, opsednut estetikom.
+            Brz, pouzdan, i <em>stojim iza</em> onoga što napravim.
           </p>
           <p class="about__text" data-reveal>
-            Dizajn i kod posmatram kao dva jezika iste ideje. Volim kad se
-            interfejs ne samo vidi, nego i oseti — kad svaki skrol, hover i
-            tranzicija imaju razlog da postoje.
+            Dizajn i kod su mi dva jezika iste ideje — ali sajt nije umetnička
+            slika, nego alat koji treba da ti donese kupce. Zato svaki projekat
+            radim sa istim pristupom: brzo, disciplinovano i sa jasnom komunikacijom
+            dok rezultat ne bude tačno onakav kakav tvom biznisu treba.
           </p>
           <p class="about__text" data-reveal>
-            Brzo učim, radim disciplinovano i fokusiran sam pod pritiskom — navike
-            koje sam izgradio kroz sport i rad u dinamičnim okruženjima. Taj isti
-            mindset unosim u svaki projekat: odgovornost, jasna komunikacija i
-            posvećenost dok rezultat ne bude tačno onakav kakav treba.
+            Disciplinu i fokus pod pritiskom sam izgradio kroz sport i rad u
+            dinamičnim okruženjima — i to je razlog zašto isporučujem brže nego
+            što očekuješ, a da kvalitet ne trpi.
           </p>
 
           <div class="about__stats" data-reveal>
@@ -495,13 +541,13 @@
     <!-- ===== CONTACT / KONTAKT ===== -->
     <section class="contact" id="contact">
       <div class="contact__inner glass" data-reveal data-tilt>
-        <span class="section-head__index">04</span>
+        <span class="section-head__index">05</span>
         <h2 class="contact__title">
-          Imaš ideju?<br /><em>Hajde da je oživimo.</em>
+          Hoćeš da vidiš<br /><em>kako bi tvoj sajt izgledao?</em>
         </h2>
         <p class="contact__lead">
-          Otvoren sam za saradnje, freelance projekte i nove izazove.
-          Pošalji poruku — odgovaram brzo.
+          Napiši mi par reči o biznisu — za nekoliko dana imaš gotov demo u rukama.
+          Bez obaveze, bez troška. Ako ti se svidi, krećemo.
         </p>
 
         <form class="contact__form" data-form name="contact" method="POST">
@@ -522,7 +568,7 @@
             <label for="message">Ispričaj mi o projektu</label>
           </div>
           <button type="submit" class="btn btn--primary btn--full" data-magnetic>
-            <span data-submit-text>Pošalji poruku</span>
+            <span data-submit-text>Pošalji — hoću svoj demo</span>
           </button>
         </form>
 

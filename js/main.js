@@ -34,36 +34,75 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ============================================
      SPINE — linija koja raste kroz ceo sajt
      ============================================ */
-  (function initSpine() {
-    const spine = document.querySelector("[data-spine]");
-    if (!spine) return;
-    const fill = spine.querySelector("[data-spine-fill]");
-    const node = spine.querySelector("[data-spine-node]");
-    const TRACK = 80; // vh (100vh - 2*10vh)
+  (function initRain() {
+    const canvas = document.querySelector("[data-rain]");
+    if (!canvas || reduceMotion) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
-    // Čvorovi sekcija koji se pale kako linija prolazi
-    const points = [0.1, 0.3, 0.5, 0.7, 0.9];
-    const ticks = points.map((p) => {
-      const t = document.createElement("span");
-      t.className = "spine__tick";
-      t.style.top = (10 + p * TRACK) + "vh";
-      spine.appendChild(t);
-      return { el: t, p };
+    const isMobile = window.matchMedia("(max-width: 760px)").matches;
+    // DPR ograničen radi performansi (telefon ne renderuje 3x)
+    const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+    // gustina kapi po površini ekrana — manje na telefonu
+    const DENSITY = isMobile ? 0.00006 : 0.00011;
+    const ANGLE = 0.28; // blagi nagib kiše
+
+    let w = 0, h = 0, drops = [], running = true;
+    const rand = (a, b) => a + Math.random() * (b - a);
+
+    function makeDrop(initial) {
+      return {
+        x: rand(0, w + h * ANGLE),
+        y: initial ? rand(0, h) : rand(-h * 0.4, 0),
+        len: rand(isMobile ? 9 : 12, isMobile ? 18 : 26),
+        spd: rand(isMobile ? 7 : 9, isMobile ? 13 : 18),
+        op: rand(0.06, 0.22),
+      };
+    }
+
+    function resize() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.round(w * DPR);
+      canvas.height = Math.round(h * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      const count = Math.round(w * h * DENSITY);
+      drops = Array.from({ length: count }, () => makeDrop(true));
+    }
+
+    function frame() {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1;
+      ctx.lineCap = "round";
+      for (let i = 0; i < drops.length; i++) {
+        const d = drops[i];
+        ctx.strokeStyle = "rgba(159, 205, 255, " + d.op + ")";
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - d.len * ANGLE, d.y + d.len);
+        ctx.stroke();
+        d.y += d.spd;
+        d.x -= d.spd * ANGLE;
+        if (d.y > h) { Object.assign(d, makeDrop(false)); }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    // Pauza kad je tab neaktivan — štedi bateriju na telefonu
+    document.addEventListener("visibilitychange", () => {
+      running = !document.hidden;
+      if (running) requestAnimationFrame(frame);
     });
 
-    let current = 0;
-    const maxScroll = () =>
-      Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    let rt;
+    window.addEventListener("resize", () => {
+      clearTimeout(rt); rt = setTimeout(resize, 200);
+    }, { passive: true });
 
-    function loop() {
-      const p = Math.min(1, Math.max(0, window.scrollY / maxScroll()));
-      current += (p - current) * (reduceMotion ? 1 : 0.12);
-      fill.style.height = current * TRACK + "vh";
-      node.style.top = 10 + current * TRACK + "vh";
-      ticks.forEach((t) => t.el.classList.toggle("is-on", current >= t.p - 0.01));
-      requestAnimationFrame(loop);
-    }
-    loop();
+    resize();
+    canvas.style.opacity = "1";
+    requestAnimationFrame(frame);
   })();
 
   /* ---------- Footer year ---------- */
